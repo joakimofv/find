@@ -1,8 +1,8 @@
 package find
 
 import (
-	"strings"
 	"fmt"
+	"strings"
 )
 
 // This file contains utility functions for wildcard pattern matching.

@@ -3,6 +3,7 @@ package find
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -37,10 +38,14 @@ func Files(filter string, pathPatterns []string) []string {
 		out, err := cmd.Output()
 		if err != nil {
 			if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 128 {
-				// Not a git repository. Redo the command but without using the git index
-				cmd = exec.Command("git", "grep", "-F", "-I", "--name-only", "--no-index", filter)
-				stdErr.Reset()
-				out, err = cmd.Output()
+				// Not a git repository.
+				/*
+					cmd = exec.Command("git", "grep", "-F", "-I", "--name-only", "--no-index", filter)
+					stdErr.Reset()
+					out, err = cmd.Output()
+				*/
+				fmt.Fprintln(os.Stderr, stdErr.String())
+				return nil
 			}
 		}
 		if err != nil {
