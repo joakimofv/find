@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/mattn/go-zglob"
@@ -17,8 +18,8 @@ import (
 // are given then all files under the current folder that contain
 // the filter substring are taken.
 //
-// Note: This makes use of 'git grep' so only files that are added to git
-// can be matched.
+// Note: filter matching uses 'git grep' so only files that are added to git
+// can be found by that method.
 func Files(filter string, pathPatterns []string) []string {
 	if len(pathPatterns) == 0 {
 		if filter == "" {
@@ -78,5 +79,6 @@ func Files(filter string, pathPatterns []string) []string {
 		files[i] = uniqueMatch
 		i += 1
 	}
+	sort.Strings(files)
 	return files
 }

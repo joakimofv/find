@@ -25,8 +25,8 @@ func LongestFixedPart(pattern string) string {
 // Replace searches for oldPattern in line and replaces it with newPattern.
 // '*' counts as wildcards in the patterns.
 //
-// If the line was modified then it will be returned along with TRUE,
-// otherwise FALSE will be returned and then the string return is not to be used.
+// If the line was modified then it will be returned along with true,
+// otherwise false will be returned and the string will be empty.
 func Replace(line, oldPattern, newPattern string) (string, bool) {
 	// Expose strings to the user, but use rune slices internally
 	return replace(line, []rune(oldPattern), []rune(newPattern))
