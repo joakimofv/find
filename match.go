@@ -2,6 +2,7 @@ package find
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -51,7 +52,7 @@ func replace(line string, oldPattern, newPattern []rune) (string, bool) {
 	}
 	lineMod, err := insert(newPattern, wildcardContents)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintln(os.Stderr, err)
 		return "", false
 	}
 	if line == lineMod {

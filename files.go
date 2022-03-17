@@ -29,7 +29,7 @@ func Files(filter string, pathPatterns []string) []string {
 		}
 
 		if _, err := exec.LookPath("git"); err != nil {
-			fmt.Printf("Missing git (error: %v)\n", err)
+			fmt.Fprintf(os.Stderr, "Missing git (error: %v)\n", err)
 			return nil
 		}
 		// Do git-grep for files containing filter
@@ -53,7 +53,7 @@ func Files(filter string, pathPatterns []string) []string {
 			if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 1 {
 				// Normal exit, just nothing found
 			} else {
-				fmt.Printf("git grep failure. StdOut: %v\nStdErr: %v\nError: %v\n", string(out), string(stdErr.Bytes()), err)
+				fmt.Fprintf(os.Stderr, "git grep failure. StdOut: %v\nStdErr: %v\nError: %v\n", string(out), string(stdErr.Bytes()), err)
 			}
 			return nil
 		}
@@ -64,7 +64,7 @@ func Files(filter string, pathPatterns []string) []string {
 	for _, pathPattern := range pathPatterns {
 		matches, err := zglob.Glob(pathPattern)
 		if err != nil {
-			fmt.Printf("bad pattern '%v', error: %v\n", pathPattern, err)
+			fmt.Fprintf(os.Stderr, "bad pattern '%v', error: %v\n", pathPattern, err)
 			continue
 		}
 		for _, match := range matches {
