@@ -1,4 +1,4 @@
-module github.com/joakimofv/find
+module github.com/joakimofv/find/v2
 
 go 1.17
 
